@@ -1,0 +1,9 @@
+{% if categorys %}
+    <ul>
+    {% for category in categorys %}
+        <li><a href="/{{ category.id }}/">{{ category.category_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Sorry,all our products are sold.</p>
+{% endif %}

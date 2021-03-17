@@ -1,0 +1,9 @@
+{% if products %}
+    <ul>
+    {% for product in products %}
+        <li><a href="{{ product.id }}/">{{product.brand}} -- {{product.model}}--{{product.price}}$</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Sorry,all products in this category are sold.</p>
+{% endif %}
