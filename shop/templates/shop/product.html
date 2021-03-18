@@ -1,1 +1,6 @@
-Hello!
+{% if product_info %}
+<h1>Meet new product from {{product_info.brand}}</h1>
+<h2>This new {{product_info.model}} was made for you</h2>
+<h3>It cost only {{product_info.price}}$ and we have {{product_info.amount}} pcs lesf</h3>
+
+{% endif %}

@@ -12,6 +12,6 @@ class Product(models.Model):
     model = models.CharField(max_length=50)
     price = models.IntegerField(default=0)
     amount = models.IntegerField(default=0)
-    category_id=models.ForeignKey(Category,on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Category,on_delete=models.CASCADE)
 
 

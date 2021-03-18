@@ -1,7 +1,7 @@
 {% if products %}
     <ul>
     {% for product in products %}
-        <li><a href="{{ product.id }}/">{{product.brand}} -- {{product.model}}--{{product.price}}$</a></li>
+        <li><a href="/{{ product.category_id_id }}/{{product.id}}">{{product.brand}} -- {{product.model}}--{{product.price}}$</a></li>
     {% endfor %}
     </ul>
 {% else %}
