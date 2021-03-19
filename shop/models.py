@@ -14,4 +14,9 @@ class Product(models.Model):
     amount = models.IntegerField(default=0)
     category_id = models.ForeignKey(Category,on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.model
+
+
+
 

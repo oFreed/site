@@ -1,9 +1,12 @@
 {% if products %}
     <ul>
     {% for product in products %}
-        <li><a href="/{{ product.category_id_id }}/{{product.id}}">{{product.brand}} -- {{product.model}}--{{product.price}}$</a></li>
+        <li><a href="{% url 'shop:product' product.category_id_id product.id %}">{{product.brand}} -- {{product.model}}--{{product.price}}₴</a></li>
     {% endfor %}
-    </ul>
+        {% for producttt in cart %}
+            Your cart : {{producttt.model}}
+        {% endfor %}
+
 {% else %}
     <p>Sorry,all products in this category are sold.</p>
 {% endif %}

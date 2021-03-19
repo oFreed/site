@@ -1,0 +1,13 @@
+{% if cart %}
+<p>Your cart is :</p>
+{% for i in cart%}
+        <li>{{i.brand}}--{{i.model}}--{{i.price}}₴</li>
+{% endfor %}
+<p>And it cost {{cost}}₴</p>
+    <form action="{% url 'shop:main_page'%}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Back to main page">
+        <form action="{% url 'shop:main_page'%}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Back to main page">
+{% endif %}
