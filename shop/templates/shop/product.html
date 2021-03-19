@@ -2,13 +2,19 @@
     <h1>Meet new product from {{product_info.brand}}</h1>
     <h2>This new {{product_info.model}} was made for you</h2>
     <h3>It cost only {{product_info.price}}₴</h3>
-    {% if product_info.amount < 3 %}
-        <p>Hurry up! It's only {{product_info.amount}} pcs left</p>
-    {% endif %}
+    {% if product_info.amount > 0 %}
+    <h4>It's {{product_info.amount}} pcs left</h4>
     <form action="{% url 'shop:add_to_cart' product_info.category_id_id product_info.id %}" method="post">
     {% csrf_token %}
     <input type="submit" value="Add to cart">
     </form>
+    {% else %}
+        <p>Sorry,this item is sold.</p>
+    {% endif %}
 {% else %}
     <p>Sorry,this item is sold.</p>
 {% endif %}
+    <form action="{% url 'shop:main_page'%}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Back to main page">
+    </form>

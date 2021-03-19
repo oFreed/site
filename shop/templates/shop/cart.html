@@ -1,13 +1,23 @@
 {% if cart %}
 <p>Your cart is :</p>
-{% for i in cart%}
-        <li>{{i.brand}}--{{i.model}}--{{i.price}}₴</li>
+<form action="{% url 'shop:remove_item'%}" method="post">
+{% csrf_token %}
+{% for i in cart %}
+    <input type="radio" name="remove" id="i{{ forloop.counter }}" value="{{i.id}}">
+    <label for="i{{ forloop.counter }}">{{ i.model }}</label><br>
 {% endfor %}
+<input type="submit" value="Remove">
+</form>
 <p>And it cost {{cost}}₴</p>
-    <form action="{% url 'shop:main_page'%}" method="post">
+    <form action="{% url 'shop:checkout'%}" method="post">
     {% csrf_token %}
-    <input type="submit" value="Back to main page">
-        <form action="{% url 'shop:main_page'%}" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Back to main page">
+    <input type="submit" value="Checkout">
+    </form>
+{% else %}
+<h>Sorry,your cart is empty!</h>
 {% endif %}
+<form action="{% url 'shop:main_page'%}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Buy something else">
+    </form>
+You deleted{{new}}

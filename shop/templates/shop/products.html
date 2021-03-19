@@ -6,7 +6,10 @@
         {% for producttt in cart %}
             Your cart : {{producttt.model}}
         {% endfor %}
-
 {% else %}
     <p>Sorry,all products in this category are sold.</p>
 {% endif %}
+        <form action="{% url 'shop:main_page'%}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Back to main page">
+        </form>

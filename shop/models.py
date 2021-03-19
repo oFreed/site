@@ -15,7 +15,7 @@ class Product(models.Model):
     category_id = models.ForeignKey(Category,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.model
+        return f"model:{self.model} ------- price:{self.price} ---------     amount:{self.amount}"
 
 
 

@@ -22,6 +22,10 @@ def product(request,category_id,product_id):
 
 def add_to_cart(request,category_id,product_id):
     product = Product.objects.get(category_id=category_id,id=product_id)
+    if product.amount == 0:
+        raise ValueError("Sorry,we haven't this items anymore")
+    product.amount -= 1
+    product.save()
     global cart,cost
     cart.append(product)
     cost+=product.price
@@ -32,5 +36,22 @@ def check_cart(request):
     return render(request,'shop/cart.html',{'cart' : cart,'product' : product,'cost':cost })
 
 
+def checkout(request):
+    global cart,cost
+    order = cart
+    cart=[]
+    cost=0
+    return render(request,'shop/checkout.html',{'cart' : cart,'order' : order})
+
+def remove_item(request):
+    global cart
+    try:
+        new=Product.objects.get(id=request.POST["remove"])
+        cart.remove(new)
+        new.amount+=1
+        new.save()
+    except(ProductDoesNotExist):
+        new=[1,2]
+    return render(request,'shop/cart.html',{'cart' : cart,'new':new})
 
 
