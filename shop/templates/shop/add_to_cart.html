@@ -1,0 +1,13 @@
+{% if cart %}
+<h1>{{product.model}} added to your cart</h1>
+    <form action="{% url 'shop:check_cart'%}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Cart">
+    </form>
+{% else %}
+<h>Sorry,your cart is empty!</h>
+{% endif %}
+    <form action="{% url 'shop:main_page'%}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Buy something else">
+    </form>

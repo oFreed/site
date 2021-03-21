@@ -1,8 +1,5 @@
 <h1>Congratulation! You order is complete</h1>
-<h2>Here is your products:</h2>
-{% for i in order%}
-        <li>{{i.brand}}--{{i.model}}--{{i.price}}₴ </li>
-{% endfor %}
+<h2>Your order's number is :{{order.id}}</h2>
 <form action="{% url 'shop:main_page'%}" method="post">
     {% csrf_token %}
     <input type="submit" value="Return to main page">

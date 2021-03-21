@@ -1,0 +1,5 @@
+Your cart is empty!
+    <form action="{% url 'shop:main_page'%}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Main page">
+    </form>
