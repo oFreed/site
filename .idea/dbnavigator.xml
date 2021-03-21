@@ -26,7 +26,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="4aa33bf7-ee71-4fdd-a686-4e20b9625182">
-        <schema name="public" object-types="table, view" />
+        <schema name="public" object-types="constraint, index, column, table, view, function, dataset trigger, sequence" />
       </connection>
       <connection connection-id="f1da95e4-894e-4432-91b9-a48d1e1d2484">
         <schema name="electronics" object-types="table, view" />
@@ -42,7 +42,9 @@
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="4aa33bf7-ee71-4fdd-a686-4e20b9625182" object-ref="schemas/public/tables/shop_product" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="4aa33bf7-ee71-4fdd-a686-4e20b9625182" />

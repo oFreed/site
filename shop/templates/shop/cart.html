@@ -1,8 +1,13 @@
 {% if cart.cost > 0 %}
 <h1>Here is your list: </h1>
+<form action="{% url 'shop:remove_item' %}" method="post">
+{% csrf_token %}
 {% for i in items %}
-<li>{{i.model}}</li>
+    <input type="radio" name="item" id="i.id" value="{{i.id}}">
+    <label for="i.id">{{i.model}}</label><br>
 {% endfor %}
+<input type="submit" value="remove from cart">
+</form>
 <h3>And it cost {{cart.cost}}</h3>
     <form action="{% url 'shop:checkout'%}" method="post">
     {% csrf_token %}

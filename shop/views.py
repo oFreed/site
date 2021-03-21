@@ -52,12 +52,12 @@ def checkout(request):
 def remove_item(request):
     global cart
     try:
-        removed = Product.objects.get(id=request.POST["remove"])
-        cart.product_list.exclude(product)
+        removed = Product.objects.get(id=request.POST["item"])
+        cart.product_list.remove(removed)
         removed.amount += 1
         removed.save()
         cart.cost -= removed.price
         cart.save()
     except Exception:
-        return render(request, 'shop/cart_remove.html')
-    return render(request, 'shop/cart.html', {'cart': cart})
+        return render(request, 'shop/cart_is_clean.html')
+    return render(request, 'shop/remove_item.html', {'cart': cart,'removed': removed})
