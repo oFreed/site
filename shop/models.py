@@ -35,4 +35,6 @@ class Cart(models.Model):
 
     def __str__(self):
         list = ",".join([str(i.model) for i in self.product_list.all()])
+        for i in self.product_list.all():
+            self.cost+=i.price
         return f"Item in your cart is: {list} and it cost {self.cost}₴"
