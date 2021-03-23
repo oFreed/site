@@ -26,10 +26,10 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="4aa33bf7-ee71-4fdd-a686-4e20b9625182">
-        <schema name="public" object-types="dataset trigger, view, function, sequence, column, table, index, constraint" />
+        <schema name="public" object-types="function, index, sequence, table, dataset trigger, view, column, constraint" />
       </connection>
       <connection connection-id="f1da95e4-894e-4432-91b9-a48d1e1d2484">
-        <schema name="electronics" object-types="view, table" />
+        <schema name="electronics" object-types="table, view" />
       </connection>
     </loaded-nodes>
   </component>

@@ -63,6 +63,6 @@ def remove_item(request):
         return render(request, 'shop/cart_is_clean.html')
     return render(request, 'shop/remove_item.html', {'cart': cart,'removed': removed})
 
-def find(request,some_value):
-    s= search(some_value)
-    return render(request, 'shop/product.html',{'s': s})
+def search(request,product_model):
+    s=Product.objects.get(model=product_model)
+    return render(request, 'shop/search.html',{'s': s})

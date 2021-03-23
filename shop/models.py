@@ -21,8 +21,8 @@ class Category(AppSearchModel):
 class Product(models.Model):
     brand = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
-    price = models.IntegerField(default=0)
-    amount = models.IntegerField(default=0)
+    price = models.PositiveSmallIntegerField(default=0)
+    amount = models.PositiveSmallIntegerField(default=0)
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     class AppsearchMeta:
@@ -40,11 +40,13 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
-    product_list = models.ManyToManyField(Product, blank=True)
-    cost = models.IntegerField(default=0)
+    product_list = models.ManyToManyField(Product, default=1)
+    cost = models.PositiveIntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def add(self, product):
+        if product.price < 0:
+            product.price = product.price * -1
         self.product_list.add(product.id)
         self.cost += product.price
 
