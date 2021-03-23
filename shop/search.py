@@ -26,10 +26,5 @@ def bulk_indexing():
 
 def search(model):
     es = Elasticsearch()
-    s = es.search(index='product-index',body={"query": {"match": {"model": model}}})
+    s = es.search(index='product-index', body={"query": {"match": {"model": model}}})
     return s
-
-
-
-
-

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-ELASTICSEARCH_DSL ={
+ELASTICSEARCH_DSL = {
     'default': {
         'hosts': 'localhost:9200'
     }

@@ -1,24 +1,34 @@
 from django.test import TestCase
-from .models import Product, Cart, Category
+from .models import Product, Cart
+from django.urls import reverse
 
-product=Product.objects.get(id=1)
+product = Product(price=-300, amount=-6)
 
-# class ProductCheck(TestCase):
-#     def test_validation_of_price(self):
-#         self.assertGreaterEqual(product.price,0)
-#
-#     def test_validation_of_amount(self):
-#         self.assertGreaterEqual(product.amount,0)
+
+class ProductCheck(TestCase):
+    product.checking()
+
+    def test_validation_of_price(self):
+        self.assertGreaterEqual(product.price, 0)
+
+    def test_validation_of_amount(self):
+        self.assertGreaterEqual(product.amount, 0)
+
+    def test_name(self):
+        self.assertEqual(product.__str__(), f"model:{product.model} ------- price:{product.price} ---------"
+                                           f"     amount:{product.amount}")
 
 
 class CartCheck(TestCase):
 
-    def test_cart_valid(self):
-        cart=Cart()
-        cart.save()
-        cart.add(product)
-        cart.save()
-        self.assertGreaterEqual(cart.cost,0)
+    def test_cost_validation(self):
+        cart = Cart(cost=-55)
+        cart.cart_check()
+        self.assertGreaterEqual(cart.cost, 0)
 
 
+class LinksTest(TestCase):
 
+    def test_main_page(self):
+        response = self.client.get(reverse('shop:main_page'))
+        self.assertEqual(response.status_code, 200)

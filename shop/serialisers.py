@@ -15,4 +15,3 @@ class ProductSerialiser(serialisers.AppSearchSerialiser):
         return '{}'.format(
             instance.category.id
         )
-

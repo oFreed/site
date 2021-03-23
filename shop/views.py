@@ -1,7 +1,5 @@
 from django.shortcuts import get_object_or_404, render, get_list_or_404
-
 from .models import Category, Product, Cart
-from .search import search
 
 cart = Cart()
 
@@ -30,6 +28,7 @@ def add_to_cart(request, category_id, product_id):
     global cart
     cart.save()
     cart.add(product)
+    cart.cart_check()
     cart.save()
     cost = cart.cost
     return render(request, 'shop/add_to_cart.html', {'cart': cart, 'cost': cost, 'product': product})
@@ -38,7 +37,7 @@ def add_to_cart(request, category_id, product_id):
 def check_cart(request):
     global cart
     cart.save()
-    items=cart.product_list.all()
+    items = cart.product_list.all()
     return render(request, 'shop/cart.html', {'cart': cart, 'items': items})
 
 
@@ -61,8 +60,4 @@ def remove_item(request):
         cart.save()
     except Exception:
         return render(request, 'shop/cart_is_clean.html')
-    return render(request, 'shop/remove_item.html', {'cart': cart,'removed': removed})
-
-def search(request,product_model):
-    s=Product.objects.get(model=product_model)
-    return render(request, 'shop/search.html',{'s': s})
+    return render(request, 'shop/remove_item.html', {'cart': cart, 'removed': removed})
