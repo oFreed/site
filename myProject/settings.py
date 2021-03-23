@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_elastic_appsearch',
     'shop.apps.ShopConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -128,3 +129,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+APPSEARCH_HOST = 'enterprise-search-deployment-a93d17'
+
+APPSEARCH_API_KEY = 'private-hyk4kqte5n8ztm1z25ga2rgk'
+
+APPSEARCH_USE_HTTPS = False

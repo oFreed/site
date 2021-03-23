@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, get_list_or_404
 
 from .models import Category, Product, Cart
+from .search import search
 
 cart = Cart()
 
@@ -61,3 +62,7 @@ def remove_item(request):
     except Exception:
         return render(request, 'shop/cart_is_clean.html')
     return render(request, 'shop/remove_item.html', {'cart': cart,'removed': removed})
+
+def find(request,some_value):
+    s= search(some_value)
+    return render(request, 'shop/product.html',{'s': s})

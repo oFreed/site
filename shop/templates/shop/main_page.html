@@ -1,4 +1,9 @@
 {% if categorys %}
+    <form action="{% url 'shop:search'%}" method="post">
+        <input type="text" size="50">
+    {% csrf_token %}
+    <input type="submit" value="Search">
+    </form>
     <ul>
     {% for category in categorys %}
         <li><a href="{% url 'shop:product_in_category' category.id %}">{{ category.category_name }}</a></li>
