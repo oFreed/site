@@ -15,24 +15,28 @@ def product_in_category(request, category_pk):
 
 
 def product(request, category_pk, product_pk):
-    product = get_object_or_404(Product, category_id=category_pk, id=product_pk)
+    product = get_object_or_404(Product, category_id=category_pk,
+                                id=product_pk)
     photos = ProductPhotos.objects.filter(product_id=product_pk)
-    return render(request, 'shop/product.html', {'product': product, 'photos': photos})
+    return render(request, 'shop/product.html', {'product': product,
+                                                 'photos': photos})
 
 
 def add_to_cart(request, category_pk, product_pk):
-    product = Product.objects.get(category_id=category_pk, id=product_pk)
+    adding_product = Product.objects.get(category_id=category_pk,
+                                         id=product_pk)
     if product.amount == 0:
         raise ValueError("Sorry,we haven't this items anymore")
-    product.amount -= 1
-    product.save()
+    adding_product.amount -= 1
+    adding_product.save()
     global cart
     cart.save()
-    cart.add(product)
-    cart.cart_check()
+    cart.add_product_to_cart(adding_product)
+    cart.checking_cart_accuracy()
     cart.save()
     cost = cart.cost
-    return render(request, 'shop/add_to_cart.html', {'cart': cart, 'cost': cost, 'product': product})
+    return render(request, 'shop/add_to_cart.html',
+                {'cart': cart, 'cost': cost, 'adding_product': adding_product})
 
 
 def check_cart(request):
@@ -46,19 +50,20 @@ def checkout(request):
     global cart
     order = cart
     cart.save()
-    cart.clear()
+    cart.clear_cart()
     return render(request, 'shop/checkout.html', {'order': order})
 
 
 def remove_item(request):
     global cart
     try:
-        removed = Product.objects.get(id=request.POST["item"])
-        cart.product_list.remove(removed)
-        removed.amount += 1
-        removed.save()
-        cart.cost -= removed.price
+        removed_product = Product.objects.get(id=request.POST["item"])
+        cart.product_list.remove(removed_product)
+        removed_product.amount += 1
+        removed_product.save()
+        cart.cost -= removed_product.price
         cart.save()
     except Exception:
         return render(request, 'shop/cart_is_clean.html')
-    return render(request, 'shop/remove_item.html', {'cart': cart, 'removed': removed})
+    return render(request, 'shop/remove_item.html', {'cart': cart,
+                                        'removed_product': removed_product})

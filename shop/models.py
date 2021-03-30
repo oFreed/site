@@ -16,7 +16,8 @@ class Product(models.Model):
     amount = models.PositiveSmallIntegerField(default=0)
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
 
-    def checking(self):
+    def checking_product_accuracy(self):
+        """Checking price and amount for accuracy"""
         if self.price < 0:
             self.price = abs(self.price)
         if self.amount < 0:
@@ -24,10 +25,12 @@ class Product(models.Model):
         return self.price, self.amount
 
     def __str__(self):
-        return f"model:{self.model} ------- price:{self.price} ---------     amount:{self.amount}"
+        return f"model:{self.model} ------- price:{self.price}" \
+                                          f"---------     amount:{self.amount}"
 
 
 class ProductPhotos(models.Model):
+    """Photos for our products"""
     image = models.ImageField(upload_to='', null=True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
@@ -40,13 +43,15 @@ class Cart(models.Model):
     cost = models.PositiveIntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
-    def add(self, product):
+    def add_product_to_cart(self, product):
+        """Adding product to the cart"""
         if product.price < 0:
             product.price = abs(product.price)
         self.product_list.add(product.id)
         self.cost += product.price
 
-    def clear(self):
+    def clear_cart(self):
+        """Delete all items from the cart"""
         self.product_list.clear()
         self.cost = 0
 
@@ -54,8 +59,9 @@ class Cart(models.Model):
         list = ",".join([str(i.model) for i in self.product_list.all()])
         for i in self.product_list.all():
             self.cost += i.price
-        return f"Item in {self.user}'s cart is: {list} and it cost {self.cost}₴                                       m"
+        return f"Item in {self.user}'s cart is:{list} and it cost {self.cost}₴"
 
-    def cart_check(self):
+    def checking_cart_accuracy(self):
+        """Checking price and amount for accuracy"""
         if self.cost < 0:
             self.cost = abs(self.cost)

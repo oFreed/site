@@ -15,7 +15,6 @@ class ProductCheck(TestCase):
         self.assertGreaterEqual(product.amount, 0)
 
 
-
 class CartCheck(TestCase):
 
     def test_cost_validation(self):
