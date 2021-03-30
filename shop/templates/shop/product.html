@@ -1,24 +1,26 @@
 {% if product %}
 <head><title>{{product.model}}</title></head>
-    <h1>Meet new product from {{product.brand}}</h1>
-    <h2>This new {{product.model}} was made for you</h2>
-    {% if photos %}
+<div align="middle">
+    <h1 align="middle">Meet new product from {{product.brand}}</h1>
+    <h2>This new {{product.model}} is available now!</h2>
     {% for image in photos %}
-    <img src="{{ MEDIA_URL }} {{ image.image.url }}" align="right" width="400px" height="400px" >
+    <img src="{{ MEDIA_URL }} {{ image.image.url }}" width="auto" height="400px" >
     {% endfor %}
+    {% if photos %}
     {% endif %}
     <h3>It cost only {{product.price}}₴</h3>
     {% if product.amount > 0 %}
     <h4>It's {{product.amount}} pcs left</h4>
     <form action="{% url 'shop:add_to_cart' product.category_id_id product.id %}" method="post">
     {% csrf_token %}
-    <input type="submit" value="Add to cart">
+    <input size="200" type="submit" value="Add to cart">
     </form>
     {% else %}
         <p>Sorry,this item is sold.</p>
     {% endif %}
 {% else %}
     <p>Sorry,this item is sold.</p>
+</div>
 {% endif %}
     <form action="{% url 'shop:main_page'%}" method="post">
     {% csrf_token %}

@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django_elastic_appsearch',
     'shop.apps.ShopConfig',
     'django.contrib.admin',
     'django.contrib.auth',
