@@ -14,9 +14,6 @@ class ProductCheck(TestCase):
     def test_validation_of_amount(self):
         self.assertGreaterEqual(product.amount, 0)
 
-    def test_name(self):
-        self.assertEqual(product.__str__(), f"model:{product.model} ------- price:{product.price} ---------"
-                                           f"     amount:{product.amount}")
 
 
 class CartCheck(TestCase):

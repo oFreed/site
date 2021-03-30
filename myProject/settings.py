@@ -130,8 +130,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-APPSEARCH_HOST = 'enterprise-search-deployment-a93d17'
-
-APPSEARCH_API_KEY = 'private-hyk4kqte5n8ztm1z25ga2rgk'
-
-APPSEARCH_USE_HTTPS = False
+MEDIA_URL = '/shop/templates/shop/photos/'
+STATIC_ROOT = 'D:/PyCharmProjects/myProject/shop/templates/'
+MEDIA_ROOT = 'D:/PyCharmProjects/myProject/shop/templates/shop/photos/'

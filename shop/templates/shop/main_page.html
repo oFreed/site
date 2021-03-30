@@ -3,14 +3,10 @@
     <title>Main page</title>
 </head>
 <body>
-{% if categorys %}
     {% for category in categorys %}
         <li><a href="{% url 'shop:product_in_category' category.id %}">{{ category.category_name }}</a></li>
     {% endfor %}
     </ul>
         <li><a href="{% url 'shop:check_cart' %}">Cart</a></li>
-{% else %}
-    <p>Sorry,all our products are sold.</p>
-{% endif %}
 </body>
 </html>

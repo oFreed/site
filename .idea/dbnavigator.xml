@@ -26,7 +26,8 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="4aa33bf7-ee71-4fdd-a686-4e20b9625182">
-        <schema name="public" object-types="function, index, sequence, table, dataset trigger, view, column, constraint" />
+        <schema name="pg_catalog" object-types="function" />
+        <schema name="public" object-types="table, index, sequence, constraint, view, column, dataset trigger, function" />
       </connection>
       <connection connection-id="f1da95e4-894e-4432-91b9-a48d1e1d2484">
         <schema name="electronics" object-types="table, view" />
@@ -52,6 +53,7 @@
     <filter-actions connection-id="f1da95e4-894e-4432-91b9-a48d1e1d2484" dataset="electronics.product" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="f1da95e4-894e-4432-91b9-a48d1e1d2484" dataset="electronics.category" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="4aa33bf7-ee71-4fdd-a686-4e20b9625182" dataset="public.shop_category" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="4aa33bf7-ee71-4fdd-a686-4e20b9625182" dataset="public.shop_productphotos" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="4aa33bf7-ee71-4fdd-a686-4e20b9625182" dataset="public.auth_user" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="4aa33bf7-ee71-4fdd-a686-4e20b9625182" dataset="public.shop_product" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="4aa33bf7-ee71-4fdd-a686-4e20b9625182" dataset="public.shop_cart" active-filter-id="EMPTY_FILTER" />
@@ -59,7 +61,9 @@
     <filter-actions connection-id="4aa33bf7-ee71-4fdd-a686-4e20b9625182" dataset="public.shop_cart_product_list" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
-    <last-used-providers />
+    <last-used-providers>
+      <object-type object-type="TABLE" editor-provider="DATA" />
+    </last-used-providers>
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />

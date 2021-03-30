@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, get_list_or_404
-from .models import Category, Product, Cart
+from .models import Category, Product, Cart, ProductPhotos
 
 cart = Cart()
 
@@ -9,18 +9,19 @@ def main_page(request):
     return render(request, 'shop/main_page.html', {'categorys': categorys})
 
 
-def product_in_category(request, category_id):
-    products = get_list_or_404(Product, category_id=category_id)
+def product_in_category(request, category_pk):
+    products = get_list_or_404(Product, category_id=category_pk)
     return render(request, 'shop/products.html', {'products': products})
 
 
-def product(request, category_id, product_id):
-    product_info = get_object_or_404(Product, category_id=category_id, id=product_id)
-    return render(request, 'shop/product.html', {'product_info': product_info})
+def product(request, category_pk, product_pk):
+    product = get_object_or_404(Product, category_id=category_pk, id=product_pk)
+    photos = ProductPhotos.objects.filter(product_id=product_pk)
+    return render(request, 'shop/product.html', {'product': product, 'photos': photos})
 
 
-def add_to_cart(request, category_id, product_id):
-    product = Product.objects.get(category_id=category_id, id=product_id)
+def add_to_cart(request, category_pk, product_pk):
+    product = Product.objects.get(category_id=category_pk, id=product_pk)
     if product.amount == 0:
         raise ValueError("Sorry,we haven't this items anymore")
     product.amount -= 1

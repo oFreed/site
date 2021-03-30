@@ -1,14 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django_elastic_appsearch.orm import AppSearchModel
 
 
-class Category(AppSearchModel):
+class Category(models.Model):
     category_name = models.CharField(max_length=100)
-
-    # class AppsearchMeta:
-    #     appsearch_engine_name = 'category'
-    #     appsearch_serialiser_class = CategorySerialiser
 
     def __str__(self):
         return self.category_name
@@ -23,13 +18,21 @@ class Product(models.Model):
 
     def checking(self):
         if self.price < 0:
-            self.price = self.price * -1
+            self.price = abs(self.price)
         if self.amount < 0:
-            self.amount = self.amount * -1
+            self.amount = abs(self.amount)
         return self.price, self.amount
 
     def __str__(self):
         return f"model:{self.model} ------- price:{self.price} ---------     amount:{self.amount}"
+
+
+class ProductPhotos(models.Model):
+    image = models.ImageField(upload_to='', null=True, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for {self.product}"
 
 
 class Cart(models.Model):
@@ -39,7 +42,7 @@ class Cart(models.Model):
 
     def add(self, product):
         if product.price < 0:
-            product.price = product.price * -1
+            product.price = abs(product.price)
         self.product_list.add(product.id)
         self.cost += product.price
 
@@ -51,8 +54,8 @@ class Cart(models.Model):
         list = ",".join([str(i.model) for i in self.product_list.all()])
         for i in self.product_list.all():
             self.cost += i.price
-        return f"Item in your cart is: {list} and it cost {self.cost}₴"
+        return f"Item in {self.user}'s cart is: {list} and it cost {self.cost}₴                                       m"
 
     def cart_check(self):
         if self.cost < 0:
-            self.cost = self.cost * -1
+            self.cost = abs(self.cost)
