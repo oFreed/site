@@ -11,7 +11,7 @@
     <h3>It cost only {{product.price}}₴</h3>
     {% if product.amount > 0 %}
     <h4>It's {{product.amount}} pcs left</h4>
-    <form action="{% url 'shop:add_to_cart' product.category_id_id product.id %}" method="post">
+    <form action="{% url 'shop:add_to_cart' product.category_id product.id %}" method="post">
     {% csrf_token %}
     <input size="200" type="submit" value="Add to cart">
     </form>

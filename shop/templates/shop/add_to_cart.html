@@ -1,5 +1,5 @@
 {% if cart %}
-<h1>{{product.model}} added to your cart</h1>
+<h1>{{adding_product.model}} added to your cart</h1>
     <form action="{% url 'shop:check_cart'%}" method="post">
     {% csrf_token %}
     <input type="submit" value="Cart">

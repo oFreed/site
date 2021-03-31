@@ -5,17 +5,20 @@ cart = Cart()
 
 
 def main_page(request):
+    """Get main page with all categories"""
     categorys = Category.objects.all()
     return render(request, 'shop/main_page.html', {'categorys': categorys})
 
 
 def product_in_category(request, category_pk):
+    """Get products list page"""
     products = get_list_or_404(Product, category_id=category_pk)
     return render(request, 'shop/products.html', {'products': products})
 
 
 def product(request, category_pk, product_pk):
-    product = get_object_or_404(Product, category_id=category_pk,
+    """Get product page"""
+    product = get_object_or_404(Product, category=category_pk,
                                 id=product_pk)
     photos = ProductPhotos.objects.filter(product_id=product_pk)
     return render(request, 'shop/product.html', {'product': product,
@@ -23,9 +26,10 @@ def product(request, category_pk, product_pk):
 
 
 def add_to_cart(request, category_pk, product_pk):
-    adding_product = Product.objects.get(category_id=category_pk,
+    """Adding product to cart"""
+    adding_product = Product.objects.get(category=category_pk,
                                          id=product_pk)
-    if product.amount == 0:
+    if adding_product.amount == 0:
         raise ValueError("Sorry,we haven't this items anymore")
     adding_product.amount -= 1
     adding_product.save()

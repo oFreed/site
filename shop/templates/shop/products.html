@@ -2,7 +2,7 @@
     <ul>
     {% for product in products %}
         <head><title>{{product.category_id}}</title></head>
-        <li><a href="{% url 'shop:product' product.category_id_id product.id %}">{{product.brand}} -- {{product.model}}--{{product.price}}₴</a></li>
+        <li><a href="{% url 'shop:product' product.category_id product.id %}">{{product.brand}} -- {{product.model}}--{{product.price}}₴</a></li>
     {% endfor %}
         {% for productt in cart %}
             Your cart : {{producttt.model}}
