@@ -1,9 +1,0 @@
-<h1>You deleted {{removed.model}} from your cart</h1>
-    <form action="{% url 'shop:check_cart'%}" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Comeback to cart">
-    </form>
-    <form action="{% url 'shop:main_page'%}" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Buy something else">
-    </form>

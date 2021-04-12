@@ -1,13 +1,15 @@
 from django.shortcuts import get_object_or_404, render, get_list_or_404
 from .models import Category, Product, Cart, ProductPhotos
+from django.views.generic import ListView
 
 cart = Cart()
 
 
-def main_page(request):
+class MainPage(ListView):
     """Get main page with all categories"""
-    categorys = Category.objects.all()
-    return render(request, 'shop/main_page.html', {'categorys': categorys})
+    model = Category
+    query_set = Category.objects.all()
+    template_name = "shop/main_page.html"
 
 
 def product_in_category(request, category_pk):
@@ -16,11 +18,11 @@ def product_in_category(request, category_pk):
     return render(request, 'shop/products.html', {'products': products})
 
 
-def product(request, category_pk, product_pk):
+def product(request, category_pk, pk):
     """Get product page"""
     product = get_object_or_404(Product, category=category_pk,
-                                id=product_pk)
-    photos = ProductPhotos.objects.filter(product_id=product_pk)
+                                id=pk)
+    photos = ProductPhotos.objects.filter(product_id=pk)
     return render(request, 'shop/product.html', {'product': product,
                                                  'photos': photos})
 
@@ -47,7 +49,16 @@ def check_cart(request):
     global cart
     cart.save()
     items = cart.product_list.all()
-    return render(request, 'shop/cart.html', {'cart': cart, 'items': items})
+    try:
+        removed_product = Product.objects.get(id=request.POST["item"])
+        cart.product_list.remove(removed_product)
+        removed_product.amount += 1
+        removed_product.save()
+        cart.cost -= removed_product.price
+        cart.save()
+        return render(request, 'shop/cart.html', {'cart': cart, 'items': items, 'removed_product': removed_product})
+    except Exception:
+        return render(request, 'shop/cart.html', {'cart': cart, 'items': items})
 
 
 def checkout(request):
@@ -56,18 +67,3 @@ def checkout(request):
     cart.save()
     cart.clear_cart()
     return render(request, 'shop/checkout.html', {'order': order})
-
-
-def remove_item(request):
-    global cart
-    try:
-        removed_product = Product.objects.get(id=request.POST["item"])
-        cart.product_list.remove(removed_product)
-        removed_product.amount += 1
-        removed_product.save()
-        cart.cost -= removed_product.price
-        cart.save()
-    except Exception:
-        return render(request, 'shop/cart_is_clean.html')
-    return render(request, 'shop/remove_item.html', {'cart': cart,
-                                        'removed_product': removed_product})

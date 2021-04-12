@@ -1,7 +1,7 @@
 <head><title>Checkout</title></head>
 <h1>Congratulation! You order is completing.</h1>
 <h2>Your order's number is :{{order.id}}</h2>
-<form action="{% url 'shop:main_page'%}" method="post">
+<form action="{% url 'shop:main_page'%}" method="get">
     {% csrf_token %}
     <input type="submit" value="Return to main page">
     </form>

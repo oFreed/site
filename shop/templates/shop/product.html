@@ -22,7 +22,7 @@
     <p>Sorry,this item is sold.</p>
 </div>
 {% endif %}
-    <form action="{% url 'shop:main_page'%}" method="post">
+    <form action="{% url 'shop:main_page'%}" method="get">
     {% csrf_token %}
     <input type="submit" value="Back to main page">
     </form>
